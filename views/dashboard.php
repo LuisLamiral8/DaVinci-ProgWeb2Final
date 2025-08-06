@@ -1,8 +1,13 @@
 <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
 <?php
+require_once __DIR__ . '/../class/mysqli.php';
+require_once __DIR__ . '/../class/Novedad.php';
 $nombre = $_SESSION['nombre'] ?? 'Usuario';
 $rol = $_SESSION['rol'] ?? 'usuario';
 $fecha = date('d/m/Y H:i');
+$ddbb = new MySQLDB();
+$conexion = $ddbb->getConnection();
+$novedades = Novedad::getAll($conexion);
 ?>
 <link rel="stylesheet" href="styles/global.css">
 <link rel="stylesheet" href="styles/home.css">
@@ -23,9 +28,9 @@ $fecha = date('d/m/Y H:i');
             <div class="p-3 bg-light rounded shadow-sm h-100">
               <h5 class="mb-2">Últimas novedades</h5>
               <ul class="mb-0">
-                <li>¡Nuevo manga agregado a la tienda!</li>
-                <li>Promociones activas este mes.</li>
-                <li>Revisa tus compras recientes.</li>
+                <?php foreach ($novedades as $novedad): ?>
+                  <li><?= htmlspecialchars($novedad->descripcion) ?></li>
+                <?php endforeach; ?>
               </ul>
             </div>
           </div>
