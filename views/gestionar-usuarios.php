@@ -55,9 +55,15 @@ $usuarios = Usuario::getAll($conexion);
 								</td>
 								<td class="text-center">
 									<?php if ($usuario['rol'] === Usuario::ROL_ADMIN): ?>
-										<button class="btn btn-sm btn-secondary me-2" disabled>Hacer admin</button>
+										<form method="POST" action="actions/admin/makeUser.php" style="display:inline;">
+											<input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+											<button type="submit" class="btn btn-sm btn-secondary">Hacer usuario</button>
+										</form>
 									<?php else: ?>
-										<button class="btn btn-sm btn-warning botonHacerAdmin">Hacer admin</button>
+										<form method="POST" action="actions/admin/makeAdmin.php" style="display:inline;">
+											<input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+											<button type="submit" class="btn btn-sm btn-warning botonHacerAdmin">Hacer administrador</button>
+										</form>
 									<?php endif; ?>
 									<form method="POST" action="actions/admin/borrar-usuario.php" style="display:inline;">
 										<input type="hidden" name="id" value="<?= $usuario['id'] ?>">

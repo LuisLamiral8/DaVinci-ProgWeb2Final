@@ -86,4 +86,12 @@ class Usuario {
         $consulta->close();
         return $resultado;
     }
+
+    public static function setRol($conexion, $id, $nuevoRol) {
+        $consulta = $conexion->prepare("UPDATE usuarios SET rol = ? WHERE id = ?");
+        $consulta->bind_param("si", $nuevoRol, $id);
+        $resultado = $consulta->execute();
+        $consulta->close();
+        return $resultado;
+    }
 }
