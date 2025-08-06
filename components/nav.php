@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../class/Usuario.php';
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
 <nav class="navbar navbar-expand-lg">
 	<div class="container-fluid">
 		<div class="d-flex align-items-center">
@@ -55,8 +59,23 @@
 				</li>
 			</ul>
 			<div class="d-flex ms-auto">
-				<a href="index.php?page=iniciar-sesion" class="nav-link me-2">Iniciar Sesión</a>
-				<a href="index.php?page=registrarse" class="nav-link ">Registrarse</a>
+
+				<?php if (isset($_SESSION['nombre'])): ?>
+					<span class="nav-link me-2">
+						👤 <?= htmlspecialchars($_SESSION['nombre']) ?>
+						<?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === Usuario::ROL_ADMIN): ?>
+							<span class="badge bg-danger ms-2">ADMINISTRADOR</span>
+						<?php endif; ?>
+					</span>
+					<a href="index.php?page=dashboard" class="nav-link me-2">Dashboard</a>
+					<?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === Usuario::ROL_ADMIN): ?>
+						<a href="index.php?page=gestionar-usuarios" class="nav-link text-warning me-2">Gestionar Usuarios</a>
+					<?php endif; ?>
+					<a href="actions/user/logout.php" class="nav-link text-danger">Cerrar sesión</a>
+				<?php else: ?>
+					<a href="index.php?page=iniciar-sesion" class="nav-link me-2">Iniciar Sesión</a>
+					<a href="index.php?page=registrarse" class="nav-link ">Registrarse</a>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

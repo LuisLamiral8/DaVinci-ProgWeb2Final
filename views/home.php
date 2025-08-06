@@ -2,7 +2,7 @@
 require_once "class/mysqli.php";
 require_once "components/card.php";
 require_once "class/Product.php";
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 
 $err = false;

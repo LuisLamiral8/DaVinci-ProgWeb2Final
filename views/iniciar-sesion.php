@@ -1,5 +1,5 @@
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
 <?php
-session_start();
 $login_error = $_SESSION['login_error'] ?? '';
 unset($_SESSION['login_error']);
 ?>
@@ -13,10 +13,10 @@ unset($_SESSION['login_error']);
 		<div class="col-md-6">
 			<div class="card custom_border p-4 shadow-sm">
 				<h1 class="mb-4 text-center section-title section-title_novedades" style="color: #fff;">Iniciar Sesión</h1>
-				<form method="POST" action="actions/login.php">
+				<form method="POST" action="actions/user/login.php">
 					<div class="mb-3">
 						<label for="email" class="form-label">Email</label>
-						<input type="email" class="form-control" id="email" name="email" required autofocus>
+						<input type="email" class="form-control" id="email" name="email" required autofocus value="<?= htmlspecialchars($_POST['email'] ?? $_SESSION['save_email'] ?? '') ?>">
 					</div>
 					<div class="mb-3">
 						<label for="password" class="form-label">Contraseña</label>
@@ -26,7 +26,7 @@ unset($_SESSION['login_error']);
 				</form>
 				<div class="mt-3 text-center">
 					<span>¿No tienes cuenta?</span>
-					<a href="index.php?page=register">Regístrate</a>
+					<a href="index.php?page=registrarse">Regístrate</a>
 				</div>
 			</div>
 		</div>

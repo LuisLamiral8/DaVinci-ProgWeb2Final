@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../class/mysqli.php';
-require_once __DIR__ . '/../class/Usuario.php';
+require_once __DIR__ . '/../../class/mysqli.php';
+require_once __DIR__ . '/../../class/Usuario.php';
 session_start();
 
 function devolverDatosRegistro($nombre, $apellido, $dni, $email) {
@@ -22,7 +22,7 @@ function validarCampos($nombre, $apellido, $dni, $email, $password, $password2) 
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-	header('Location: ../index.php?page=home');
+	header('Location: ../../index.php?page=home');
 	exit;
 }
 
@@ -37,32 +37,32 @@ $errores = validarCampos($nombre, $apellido, $dni, $email, $password, $password2
 if (!empty($errores)) {
 	$_SESSION['register_error'] = implode('<br>', $errores);
 	devolverDatosRegistro($nombre, $apellido, $dni, $email);
-	header('Location: ../index.php?page=registrarse');
+	header('Location: ../../index.php?page=registrarse');
 	exit;
 }
 
 
 try {
-	$nuevoUsuario = new Usuario($nombre, $apellido, $dni, $email, $password, 'usuario');
+	$nuevoUsuario = new Usuario($nombre, $apellido, $dni, $email, $password, Usuario::ROL_USUARIO);
 	$ddbb = new MySQLDB();
 	$conexion = $ddbb->getConnection();
 	$resultado = $nuevoUsuario->save($conexion);
 	if ($resultado === true) {
 		$_SESSION['register_success'] = '¡Registro exitoso! Ya puedes iniciar sesión.';
-		header('Location: ../index.php?page=registrarse');
+		header('Location: ../../index.php?page=registrarse');
 		exit;
 	} elseif ($resultado === 'duplicate') {
 		$_SESSION['register_error'] = 'El email o DNI ya están registrados.';
 		devolverDatosRegistro($nombre, $apellido, $dni, $email);
-		header('Location: ../index.php?page=registrarse');
+		header('Location: ../../index.php?page=registrarse');
 		exit;
 	} else {
 		$_SESSION['register_error'] = 'Error al registrar. Intenta nuevamente.';
-		header('Location: ../index.php?page=registrarse');
+		header('Location: ../../index.php?page=registrarse');
 		exit;
 	}
 } catch (Exception $e) {
 	$_SESSION['register_error'] = 'Error de conexión: ' . $e->getMessage();
-	header('Location: ../index.php?page=registrarse');
+	header('Location: ../../index.php?page=registrarse');
 	exit;
 }
