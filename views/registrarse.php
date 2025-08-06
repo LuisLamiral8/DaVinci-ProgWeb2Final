@@ -1,5 +1,5 @@
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
 <?php
-session_start();
 $register_error = $_SESSION['register_error'] ?? '';
 $register_success = $_SESSION['register_success'] ?? '';
 unset($_SESSION['register_error'], $_SESSION['register_success']);
@@ -16,7 +16,7 @@ unset($_SESSION['register_error'], $_SESSION['register_success']);
 		<div class="col-md-7 col-lg-6">
 			<div class="card custom_border p-4 shadow-sm">
 				<h1 class="mb-4 text-center section-title section-title_novedades" style="color: #fff;">Registrarse</h1>
-				<form method="POST" action="actions/register.php">
+				<form method="POST" action="actions/user/register.php">
 					<div class="row">
 						<div class="mb-3 col-md-6">
 							<label for="nombre" class="form-label">Nombre *</label>
