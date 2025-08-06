@@ -94,4 +94,42 @@ class Usuario {
         $consulta->close();
         return $resultado;
     }
+
+    public static function getById($conexion, $id) {
+        $consulta = $conexion->prepare("SELECT nombre, apellido, dni, email FROM usuarios WHERE id = ? LIMIT 1");
+        $consulta->bind_param("i", $id);
+        $consulta->execute();
+        $result = $consulta->get_result();
+        $row = $result->fetch_assoc();
+        $consulta->close();
+        if ($row) {
+            return [
+                'nombre' => $row['nombre'],
+                'apellido' => $row['apellido'],
+                'dni' => $row['dni'],
+                'email' => $row['email']
+            ];
+        } else {
+            return [
+                'nombre' => '',
+                'apellido' => '',
+                'dni' => '',
+                'email' => ''
+            ];
+        }
+    }
+
+    public static function updateById($conexion, $id, $nombre, $apellido, $dni, $email, $password = '') {
+        if ($password !== '') {
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $consulta = $conexion->prepare("UPDATE usuarios SET nombre = ?, apellido = ?, dni = ?, email = ?, password = ? WHERE id = ?");
+            $consulta->bind_param("sssssi", $nombre, $apellido, $dni, $email, $passwordHash, $id);
+        } else {
+            $consulta = $conexion->prepare("UPDATE usuarios SET nombre = ?, apellido = ?, dni = ?, email = ? WHERE id = ?");
+            $consulta->bind_param("ssssi", $nombre, $apellido, $dni, $email, $id);
+        }
+        $resultado = $consulta->execute();
+        $consulta->close();
+        return $resultado;
+    }
 }

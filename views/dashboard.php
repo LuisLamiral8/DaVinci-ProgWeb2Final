@@ -16,6 +16,7 @@ $fecha = date('d/m/Y H:i');
           <p class="lead mb-1">Rol: <strong><?= htmlspecialchars($rol) ?></strong></p>
           <p class="mb-3">Fecha y hora actual: <?= $fecha ?></p>
           <p>Gracias por ser parte de Manga Land. ¡Explora y disfruta de tus mangas favoritos!</p>
+          <a href="index.php?page=gestionar-mi-perfil" class="btn btn-primary mt-2">Editar mi perfil</a>
         </div>
         <div class="row g-3">
           <div class="col-md-6">

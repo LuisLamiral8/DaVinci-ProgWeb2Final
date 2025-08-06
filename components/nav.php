@@ -69,7 +69,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 					</span>
 					<a href="index.php?page=dashboard" class="nav-link me-2">Dashboard</a>
 					<?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === Usuario::ROL_ADMIN): ?>
-						<a href="index.php?page=gestionar-usuarios" class="nav-link text-warning me-2">Gestionar Usuarios</a>
+						<a href="index.php?page=gestionar-usuarios" class="nav-link text-warning me-2">AdminPanel</a>
 					<?php endif; ?>
 					<a href="actions/user/logout.php" class="nav-link text-danger">Cerrar sesión</a>
 				<?php else: ?>
