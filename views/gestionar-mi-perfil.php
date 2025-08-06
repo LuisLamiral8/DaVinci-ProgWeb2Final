@@ -2,10 +2,12 @@
 <?php
 require_once __DIR__ . '/../class/mysqli.php';
 require_once __DIR__ . '/../class/Usuario.php';
+
 if (!isset($_SESSION['id'])) {
 	header('Location: index.php?page=home');
 	exit;
 }
+
 $ddbb = new MySQLDB();
 $conexion = $ddbb->getConnection();
 $id = intval($_SESSION['id']);

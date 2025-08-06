@@ -2,10 +2,12 @@
 <?php
 require_once __DIR__ . '/../class/mysqli.php';
 require_once __DIR__ . '/../class/Novedad.php';
+
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'ADMINISTRADOR') {
 	header('Location: index.php?page=home');
 	exit;
 }
+
 $ddbb = new MySQLDB();
 $conexion = $ddbb->getConnection();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;

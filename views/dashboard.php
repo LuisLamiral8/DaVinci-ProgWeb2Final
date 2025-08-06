@@ -2,6 +2,12 @@
 <?php
 require_once __DIR__ . '/../class/mysqli.php';
 require_once __DIR__ . '/../class/Novedad.php';
+
+if (!isset($_SESSION['id'])) {
+	header('Location: index.php?page=home');
+	exit;
+}
+
 $nombre = $_SESSION['nombre'] ?? 'Usuario';
 $rol = $_SESSION['rol'] ?? 'usuario';
 $fecha = date('d/m/Y H:i');

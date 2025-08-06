@@ -2,10 +2,12 @@
 <?php
 require_once __DIR__ . '/../class/mysqli.php';
 require_once __DIR__ . '/../class/Usuario.php';
+
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== Usuario::ROL_ADMIN) {
 	header('Location: index.php?page=home');
 	exit;
 }
+
 $ddbb = new MySQLDB();
 $conexion = $ddbb->getConnection();
 $usuarios = Usuario::getAll($conexion);

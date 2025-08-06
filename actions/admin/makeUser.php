@@ -10,13 +10,13 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== Usuario::ROL_ADMIN) {
 
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 if ($id <= 0) {
-	header('Location: ../../index.php?page=gestionar-usuarios');
+	header('Location: ../../index.php?page=gestionar-datos');
 	exit;
 }
 
 if (isset($_SESSION['id']) && $id === intval($_SESSION['id'])) {
 	$_SESSION['admin_msg'] = 'No podes cambiar tu propio rol.';
-	header('Location: ../../index.php?page=gestionar-usuarios');
+	header('Location: ../../index.php?page=gestionar-datos');
 	exit;
 }
 
@@ -30,5 +30,5 @@ if ($resultado === true) {
 	$_SESSION['admin_msg'] = 'No se pudo cambiar el rol.';
 }
 
-header('Location: ../../index.php?page=gestionar-usuarios');
+header('Location: ../../index.php?page=gestionar-datos');
 exit;
